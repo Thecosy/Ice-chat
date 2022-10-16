@@ -1,0 +1,4 @@
+com/ninespace/sqlite/model/User.class
+com/ninespace/sqlite/controller/UserController.class
+com/ninespace/sqlite/mapper/UserMapper.class
+com/ninespace/sqlite/SpringDataSqliteApplication.class

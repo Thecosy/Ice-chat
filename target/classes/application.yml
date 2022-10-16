@@ -1,0 +1,63 @@
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 9090
+#spring
+spring:
+  mvc:
+    pathmatch:
+      # 配置策略
+      matching-strategy: ant-path-matcher
+  application:
+    name: spring-data-sqlite
+  # 指定静态资源的路径
+  resources:
+    static-locations: classpath:/static/,classpath:/views/,file:${web.upload},file:${web.ueditorUpload}
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.sqlite.JDBC
+#    初始化模式: 1.embedded 内存数据库 2.always 始终初始化 3.never 不初始化
+    initialization-mode: never
+    schema: classpath:sql/schema.sql
+    data: classpath:sql/data.sql
+    # 方式一：  引用外部文件
+    #        url: jdbc:sqlite:D:/eclipse/xy.db
+    #方式二： 引用项目中的文件
+    url: jdbc:sqlite::resource:static/cloud.db
+    username: root
+    password: 123456
+
+# MyBatisPlus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false
+  mapper-locations:
+    - classpath:mapper/**/*.xml
+  type-aliases-package: com.ninespace.sqlite.model
+    #config-location: classpath:mybatis.xml
+  global-config:
+    db-config:
+      # 全局默认主键类型
+      id-type: UUID
+      # 表名、是否使用下划线命名，默认数据库表使用下划线命名
+      table-underline: true
+      # 逻辑已删除值(默认为 1)
+      logic-delete-value: true
+      # 逻辑未删除值(默认为 0)
+      logic-not-delete-value: false
+#分页
+pagehelper:
+  helper-dialect: sqlite
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+# sql打印
+logging:
+  level: debug
+  level.com.ninespace.sqlite.mapper: debug
+  file:
+    path: logs/
+    name: sqlite.log
+
