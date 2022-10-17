@@ -11,6 +11,7 @@ import com.ninespace.sqlite.mapper.FriendMapper;
 import com.ninespace.sqlite.mapper.GroupMapper;
 import com.ninespace.sqlite.mapper.OfflineMsgMapper;
 import com.ninespace.sqlite.mapper.UserMapper;
+import com.ninespace.sqlite.service.FriendService;
 import com.ninespace.sqlite.service.GroupService;
 import com.ninespace.sqlite.vo.Result;
 import io.swagger.annotations.Api;
@@ -37,6 +38,9 @@ public class GroupController {
 
     @Autowired
     private OfflineMsgMapper offlineMsgMapper;
+
+    @Autowired
+    private FriendService friendService;
 
     @ApiOperation(value = "搜索群聊")
     @GetMapping("/searchGroupByName/{name}")
@@ -138,6 +142,9 @@ public class GroupController {
         group.setMembers(json3);
 
         groupMapper.update(group,queryWrapper);
+
+        //查询一下数据更新最新缓存
+        friendService.getFriendList(userid);
         return Result.ok();
     }
 

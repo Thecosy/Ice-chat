@@ -54,10 +54,10 @@ pagehelper:
   support-methods-arguments: true
   params: count=countsql
 # sql打印
-logging:
-  level: debug
-  level.com.ninespace.sqlite.mapper: debug
-  file:
-    path: logs/
-    name: sqlite.log
+#logging:
+#  level: debug
+#  level.com.ninespace.sqlite.mapper: debug
+#  file:
+#    path: logs/
+#    name: sqlite.log
 

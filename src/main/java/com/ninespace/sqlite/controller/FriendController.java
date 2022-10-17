@@ -11,6 +11,8 @@ import com.ninespace.sqlite.mapper.FriendMapper;
 import com.ninespace.sqlite.mapper.GroupMapper;
 import com.ninespace.sqlite.mapper.OfflineMsgMapper;
 import com.ninespace.sqlite.mapper.UserMapper;
+import com.ninespace.sqlite.service.FriendService;
+import com.ninespace.sqlite.util.RedisUtil;
 import com.ninespace.sqlite.vo.Result;
 import com.ninespace.sqlite.vo.UserGroup;
 import io.swagger.annotations.Api;
@@ -37,13 +39,13 @@ public class FriendController {
     private FriendMapper friendMapper;
 
     @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Autowired
-    private GroupMapper groupMapper;
-
-    @Autowired
-    private OfflineMsgMapper offlineMsgMapper;
+    private FriendService friendService;
 
     @ApiOperation(value = "根据id添加朋友")
     @GetMapping("/addFriendById/{userId}/{friendId}")
@@ -135,83 +137,27 @@ public class FriendController {
         try {
             friendMapper.insert(OnFriend);
             friendMapper.insert(friend);
+
+            //查询一下数据更新最新缓存
+            friendService.getFriendList(userId);
             return Result.ok();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    @ApiOperation(value = "根据id查询朋友")
+    @ApiOperation(value = "根据id查询朋友目录")
     @GetMapping("/getFriendByUserId/{userid}")
     public Result getFriendByUserId(
             @PathVariable Integer userid
     ) throws ParseException {
-        QueryWrapper<Friend> queryWrapper = new QueryWrapper<Friend>();
-        queryWrapper.eq("userId",userid);
-        List<Friend> friends = friendMapper.selectList(queryWrapper);
-
-        List<UserGroup> result = new ArrayList<>();
-        JSONObject jsonObject = new JSONObject();
-
-        //查询此用户所有的群聊
-        List<Group> groups = groupMapper.selectList(null);
-        for (Group group : groups) {
-            String members = group.getMembers();
-            //将json字符串转为对象
-            if (!members.equals("")) {
-                JSONArray jsArr = com.alibaba.fastjson.JSONObject.parseArray(members);
-                for (Object o : jsArr) {
-                    if (o == userid) {
-                        UserGroup user = new UserGroup();
-                        user.setName(group.getGroupName());
-                        user.setProfile(group.getProfile());
-                        user.setType("2");
-                        user.setId(Math.toIntExact(group.getId()));
-
-                        UserGroup userGroup = new UserGroup();
-                        userGroup.setType("2");
-                        BeanUtils.copyProperties(user,userGroup);
-
-                        //根据房间号查询redis用户有多少未读消息
-                        QueryWrapper<OfflineMsg> offlineMsgWrapper = new QueryWrapper<OfflineMsg>().orderByDesc("id").eq("type",2).eq("toId",userid).eq("groupId", Math.toIntExact(group.getId()));
-                        Integer count = offlineMsgMapper.selectCount(offlineMsgWrapper);
-                        userGroup.setUnMessages(count);
-                        //添加最新消息的内容和时间
-                        List<OfflineMsg> offlineMsg = offlineMsgMapper.selectList(offlineMsgWrapper);
-                        if(count !=0 ) {
-                            OfflineMsg msg = offlineMsg.get(0);
-                            userGroup.setNewMessages(msg.getMsg());
-                            userGroup.setNewTime(msg.getTime());
-                        }
-
-                        result.add(userGroup);
-                    }
-                }
-            }
+        //先看看有没有缓存，有则返回缓存数据
+        Object userListCache = redisUtil.get("userList." + userid);
+        if(userListCache != null){
+            return Result.ok().data("result",userListCache);
         }
-        for (Friend friend : friends) {
-            //根据id查询用户信息
-            User user = userMapper.selectById(friend.getFriendId());
-            UserGroup userGroup = new UserGroup();
-            userGroup.setType("1");
-            BeanUtils.copyProperties(user,userGroup);
-
-            //根据房间号查询redis用户有多少未读消息
-            QueryWrapper<OfflineMsg> offlineMsgWrapper = new QueryWrapper<OfflineMsg>().orderByDesc("id").eq("type",1).eq("toId", userid);
-            Integer count = offlineMsgMapper.selectCount(offlineMsgWrapper);
-            userGroup.setUnMessages(count);
-            //添加最新消息的内容和时间
-            List<OfflineMsg> offlineMsg = offlineMsgMapper.selectList(offlineMsgWrapper);
-            if(count !=0 ) {
-                OfflineMsg msg = offlineMsg.get(0);
-                userGroup.setNewMessages(msg.getMsg());
-                userGroup.setNewTime(msg.getTime());
-            }
-
-            result.add(userGroup);
-        }
-        jsonObject.set("user",result);
-        return Result.ok().data("result",jsonObject);
+        JSONObject friendList = friendService.getFriendList(userid);
+        return Result.ok().data("result",friendList);
     }
 
 }

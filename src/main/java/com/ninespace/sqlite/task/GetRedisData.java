@@ -25,11 +25,11 @@ public class GetRedisData {
     public void getData(){
         System.out.println("开启刷新热点数据");
         //系统启动中。。。从数据库获取值
-        List<User> users = userMapper.selectList(null);
-        for (User user : users) {
-            //存入redis，以便于后面都从redis获取值，而不是每次从数据库直接查询
-            redisUtils.set(user.getUsername(),user.getProfile());
-        }
+//        List<User> users = userMapper.selectList(null);
+//        for (User user : users) {
+//            //存入redis，以便于后面都从redis获取值，而不是每次从数据库直接查询
+//            redisUtils.set(user.getUsername(),user.getProfile());
+//        }
     }
 
     @PreDestroy
