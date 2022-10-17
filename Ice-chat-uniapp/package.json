@@ -1,0 +1,73 @@
+{
+    "id": "Usecloud-useim",
+    "name": "用云·IM uniCloud 版",
+    "version": "1.0.2",
+    "description": "基于 uni-app + uni-push2.0 + uniCloud 实现，客服应用 + 即时通讯（加好友、群聊等）",
+    "keywords": [
+        "用云客服",
+        "即时通讯IM",
+        "uni-im",
+        "uni-push2.0",
+        "uniCloud"
+    ],
+    "displayName": "用云IM uniCloud 版",
+    "repository": "",
+    "dcloudext": {
+        "sale": {
+            "regular": {
+                "price": "0.00"
+            },
+            "sourcecode": {
+                "price": "0.00"
+            }
+        },
+        "contact": {
+            "qq": ""
+        },
+        "declaration": {
+            "ads": "无",
+            "data": "基于 uniCloud + uni-push2.0 实现",
+            "permissions": "无"
+        },
+        "npmurl": "",
+        "type": "unicloud-template-project"
+    },
+    "uni_modules": {
+        "platforms": {
+            "cloud": {
+                "tcb": "y",
+                "aliyun": "y"
+            },
+            "client": {
+                "App": {
+                    "app-vue": "y",
+                    "app-nvue": "u"
+                },
+                "H5-mobile": {
+                    "Safari": "u",
+                    "Android Browser": "y",
+                    "微信浏览器(Android)": "y",
+                    "QQ浏览器(Android)": "y"
+                },
+                "H5-pc": {
+                    "Chrome": "y",
+                    "IE": "u",
+                    "Edge": "y",
+                    "Firefox": "y",
+                    "Safari": "y"
+                },
+                "小程序": {
+                    "微信": "y",
+                    "阿里": "u",
+                    "百度": "u",
+                    "字节跳动": "u",
+                    "QQ": "u"
+                },
+                "快应用": {
+                    "华为": "u",
+                    "联盟": "u"
+                }
+            }
+        }
+    }
+}

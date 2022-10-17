@@ -1,0 +1,270 @@
+{
+	"pages": [
+	    {
+            "path" : "pages/chat/home",
+            "style" : {
+				"navigationBarTitleText": "用云·IM",
+				"navigationStyle": "custom"
+			}
+        }
+		,{
+		    "path" : "pages/login/login-guide",
+		    "style" : {
+				"navigationBarTitleText": "登录"
+			}
+		}
+		,{
+		    "path" : "pages/login/login",
+		    "style" : {
+				"navigationBarTitleText": "登录"
+			}
+		}
+		,{
+		    "path" : "pages/search/search",
+		    "style" : {
+				"navigationBarTitleText": "IM·搜索",
+				"navigationStyle": "custom"
+			}
+		}
+		,{
+		    "path" : "pages/search/search-result",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "搜索结果",
+		        "enablePullDownRefresh": false
+		    }
+		}
+		,{
+		    "path" : "pages/search/friend-add",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "添加好友",
+		        "enablePullDownRefresh": false
+		    }
+		}
+		,{
+		    "path" : "pages/search/apply",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "好友申请",
+		        "enablePullDownRefresh": false
+		    }
+		}
+		,{
+		    "path" : "pages/engineer/list",
+		    "style" : {
+				"navigationBarTitleText": "IM·工程师",
+				"navigationStyle": "custom"
+			}
+		}
+		,{
+		    "path" : "pages/chat/chat",
+		    "style" : {
+				"navigationBarTitleText": "IM·聊天",
+				"navigationStyle": "custom"
+			}
+		}
+		,{
+		    "path" : "pages/chat/user",
+		    "style" : {
+				"navigationBarTitleText": "IM·用户",
+				"navigationStyle": "custom"
+			}
+		}
+		,{
+		    "path" : "pages/chat/newgroup",
+		    "style" : {
+				"navigationBarTitleText": "新建群聊",
+				"navigationStyle": "custom"
+			}
+		}
+		,{
+            "path" : "pages/chat/order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的订单",
+				"navigationStyle": "custom"
+            }
+            
+        }
+		,{
+		    "path" : "pages/chat/product",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的产品",
+				"navigationStyle": "custom"
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/chat/payment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "付款",
+                "enablePullDownRefresh": false
+            }
+        }
+		,{
+		    "path" : "pages/user/user",
+		    "style" : {
+				"navigationBarTitleText": "我的"
+				
+			}
+		}
+		,{
+		    "path" : "pages/user/collect/collect",
+		    "style" : {
+				"navigationBarTitleText": "我的收藏"
+			}
+		}
+		,{
+		    "path" : "pages/user/setting/setting",
+		    "style" : {
+				"navigationBarTitleText": "系统设置"
+			}
+		}
+		,{
+		    "path" : "pages/user/personal",
+		    "style" : {
+				"navigationBarTitleText": "个人资料"
+			}
+		}
+        ,{
+            "path" : "pages/user/profit/profit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的收益",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/user/profit/cashout",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "提现",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/user/order/order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的订单",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/user/order/order-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单详情",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/user/friend/list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "通讯录",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/user/assist/assist",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的协助",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/user/assist/coupon",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "协助券",
+                "enablePullDownRefresh": false
+            }
+        }
+		,{
+		    "path" : "pages/content/web",
+		    "style" : {
+				"navigationBarTitleText": "用云"
+			}
+		}
+		,{
+		    "path" : "pages/content/rich-text",
+		    "style" : {
+				"navigationBarTitleText": "用云"
+			}
+		}
+		,{
+            "path" : "pages/chat/groupchat",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+				"navigationStyle": "custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/search/searchall",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+				"navigationStyle": "custom",
+                "enablePullDownRefresh": false
+				
+            }
+            
+        }
+    ],
+	"tabBar": {
+		"color": "#000000",
+		"height":"100rpx",
+		"selectedColor": "#00C161",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"fontSize":"31px",
+		"list": [
+			{
+			"pagePath": "pages/chat/home",
+			"iconPath": "static/images/tobar/message.png",
+			"selectedIconPath": "static/images/tobar/message2.png"
+			
+			}
+		, {
+			"pagePath": "pages/user/friend/list",
+			"iconPath": "static/images/tobar/contact.png",
+			"selectedIconPath": "static/images/tobar/contact2.png"
+			
+		}, {
+			"pagePath": "pages/user/user",
+			"iconPath": "static/images/tobar/my.png",
+			"selectedIconPath": "static/images/tobar/my2.png"
+			
+		} 
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "用云·IM",
+		"navigationBarBackgroundColor": "#f5f5f5",
+		"backgroundColor": "#f5f5f5",
+		
+		"mp-360": {
+			// 去掉uni-app header，使用360小程序 header
+			"navigationStyle": "custom" 
+		}
+	},
+	"condition" : {
+		"current": 0,
+		"list": [
+			{
+				"name": "",
+				"path": "",
+				"query": ""
+			}
+		]
+	}	
+}
