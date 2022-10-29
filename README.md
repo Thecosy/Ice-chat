@@ -22,6 +22,36 @@ Ice-chat是一个基于spring boot的多端聊天系统。支持群聊与点对�
 * 简单到极致的 http 聊天服务器：一个 jar 包跑起来
 * 轻量级客户端：聊天界面使用 Webview 的方式
 
+## 快速开始
+Docker部署方式(推荐,可用于快速上线或测试)
+
+    # 未安装docker的请先安装docker，已经安装的跳过此步
+    yum install docker-ce -y
+    #启动docker
+    systemctl start docker
+    # 配置国内源
+    # 创建docker目录
+    sudo mkdir -p /etc/docker
+    # 创建配置文件
+    sudo tee /etc/docker/daemon.json <<-'EOF'
+    {
+    "registry-mirrors": ["https://registry.docker-cn.com"]
+    }
+    EOF
+    # 加载新的配置文件
+    sudo systemctl daemon-reload
+    # 重启docker服务
+    sudo systemctl restart docker
+
+    1.运行redis容器
+    docker run -p 6379:6379 --name redis -d redis
+
+    2.运行Spring容器
+    docker run -d -p 9090:9090 \
+    --name icechat\
+    --link redis:redis\
+    thecosy/ice-chat:latest
+
 ### 聊天服务器
 
 Ice-chat的服务器端使用 Java 语言编写，基于最简单实用的开源框架。
