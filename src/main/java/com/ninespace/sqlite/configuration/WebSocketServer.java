@@ -11,6 +11,7 @@ import com.ninespace.sqlite.entity.User;
 import com.ninespace.sqlite.mapper.GroupMapper;
 import com.ninespace.sqlite.mapper.OfflineMsgMapper;
 import com.ninespace.sqlite.mapper.UserMapper;
+import com.ninespace.sqlite.service.FriendService;
 import com.ninespace.sqlite.service.OfflineMsgService;
 import com.ninespace.sqlite.util.RedisUtil;
 import org.slf4j.Logger;
@@ -52,6 +53,13 @@ public class WebSocketServer {
     @Autowired
     public void setOfflineMsgService(OfflineMsgService offlineMsgService) {
         WebSocketServer.offlineMsgService = offlineMsgService;
+    }
+
+    private static FriendService friendService;
+
+    @Autowired
+    public void setfriendService(FriendService friendService) {
+        WebSocketServer.friendService = friendService;
     }
 
     private static OfflineMsgMapper offlineMsgMapper;
@@ -193,6 +201,7 @@ public class WebSocketServer {
                 String date = df.format(new Date());
                 System.out.println("sqlite:" + date);
 
+
                 offlineMsg.setId(date);
                 offlineMsg.setFromId(username);
                 offlineMsg.setToId(toUsername);
@@ -207,6 +216,8 @@ public class WebSocketServer {
                 offlineMsg.setTime(str);
                 log.info("将消息存入数据库" + offlineMsg);
                 boolean save = offlineMsgService.save(offlineMsg);
+                //刷新缓存
+                friendService.getFriendList(Integer.valueOf(toUsername));
                 if (save) {
                     log.info("用户" + toUsername + "离线,将消息存入数据库");
                 }
@@ -233,6 +244,7 @@ public class WebSocketServer {
                         //根据id查找用户头像追加
                         User user = userMapper.selectById(username);
                         String profile = user.getProfile();
+
 
                         jsonObject.set("from", username);  // from 是 zhang
                         jsonObject.set("text", text);  // text 同上面的text
@@ -273,6 +285,8 @@ public class WebSocketServer {
 
                         log.info("将消息存入数据库" + offlineMsg);
                         boolean save = offlineMsgService.save(offlineMsg);
+                        //刷新缓存
+                        friendService.getFriendList(Integer.valueOf(toUsername));
                         if (save) {
                             log.info("用户" + toUsername + "离线,将消息存入数据库");
                         }

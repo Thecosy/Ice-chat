@@ -54,13 +54,12 @@
 			:style="{ bottom: moreShow ? '29vh' :  emojiShow ? '29vh' : '0'}">
 			<view class="use-input dflex-c border-radius-sm padding-lr-sm w-full" @click="scrollToBottom()">
 				<input type="text" confirm-type="send" :confirm-hold="true" auto-height="true" fixed="true"
-					cursor-spacing="20" v-model="textMsg" @focus="onFocus" @confirm="sendText"
+					cursor-spacing="20" v-model="textMsg" @focus="onFocus" @confirm="send(); textMsg = null"
 					@keyboardheightchange="onKeyboardChange" />
 			</view>
 
 			<view class="use-hover iconfont iconbiaoqing margin-lr-sm" @click="emojiShow = true;moreShow=false;"></view>
 			<view class="use-hover iconfont icontianjia margin-right-sm" @click="moreShow = true;emojiShow=false;"></view>
-			<view class="use-hover iconfont iconshipin margin-right-sm" @click="send(); textMsg = null"></view>
 		</view>
 		<view style="height: 110rpx;"></view>
 
@@ -545,7 +544,7 @@
 		
 				//获取目标用户信息
 				uni.request({
-					url: 'http://localhost:9090/group/getGroupinfoByUserId' + '/' + id, //仅为示例，并非真实接口地址。
+					url: this.serviceUrl + '/group/getGroupinfoByUserId' + '/' + id, //仅为示例，并非真实接口地址。
 				    method:'GET',//请求方式  或GET，必须为大写
 					success: res => {
 						that.ToUserInfo = res.data.data.result;
@@ -555,7 +554,7 @@
 				//获取用户未读信息  /{username}/{type}/{faceName}
 				console.log('获取用户未读信息','/'+ this.myUserInfo.id + '/' + '2' + '/' +this.toUserid)
 				uni.request({
-					url: 'http://localhost:9090/message/getUnMessage/'+ this.myUserInfo.id + '/' + '2' + '/' +this.toUserid, //仅为示例，并非真实接口地址。
+					url: this.serviceUrl + '/message/getUnMessage/'+ this.myUserInfo.id + '/' + '2' + '/' +this.toUserid, //仅为示例，并非真实接口地址。
 				    method:'GET',//请求方式  或GET，必须为大写
 					success: res => {
 						console.log('获取用户未读信息', res);
@@ -574,7 +573,7 @@
 					}
 				})
 				
-				// let urls = 'http://localhost:9090/user/GetUserInfoById' + '/' + options.data;
+				// let urls = this.serviceUrl + '/user/GetUserInfoById' + '/' + options.data;
 				// console.log(urls);
 			},
 			onFocus(e) {

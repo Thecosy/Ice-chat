@@ -6,6 +6,7 @@ import com.ninespace.sqlite.entity.Group;
 import com.ninespace.sqlite.entity.OfflineMsg;
 import com.ninespace.sqlite.mapper.OfflineMsgMapper;
 import com.ninespace.sqlite.mapper.UserMapper;
+import com.ninespace.sqlite.service.FriendService;
 import com.ninespace.sqlite.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,9 @@ public class MessageController {
 
     @Autowired
     private OfflineMsgMapper offlineMsgMapper;
+
+    @Autowired
+    private FriendService friendService;
 
     @ApiOperation(value = "获取未读消息")
     @GetMapping("/getUnMessage/{username}/{type}/{faceName}")
@@ -52,8 +56,11 @@ public class MessageController {
                     jsonObject.set("profile", msg.getProfile());  // text 同上面的text
                     //发送之后在本地不保留（销毁）
                     int i = offlineMsgMapper.deleteById(msg.getId());
+
                     result.add(jsonObject);
                 }
+                //刷新缓存
+                friendService.getFriendList(Integer.valueOf(username));
                 return Result.ok().data("data",result);
             }
         }
@@ -75,6 +82,8 @@ public class MessageController {
                     int i = offlineMsgMapper.deleteById(msg.getId());
                     result.add(jsonObject);
                 }
+                //刷新缓存
+                friendService.getFriendList(Integer.valueOf(username));
                 return Result.ok().data("data",result);
             }
         }

@@ -133,7 +133,7 @@ export default {
 		// 添加好友
 		addhaoy(profile){
 			uni.request({
-				url: 'http://localhost:9090/friend/addFriendByPhone/' + this.myUserInfo.id + '/' + this.keyword, //仅为示例，并非真实接口地址。
+				url: this.serviceUrl + '/friend/addFriendByPhone/' + this.myUserInfo.id + '/' + this.keyword, //仅为示例，并非真实接口地址。
 			    method:'GET',//请求方式  或GET，必须为大写
 				success: res => {
 					console.log('res', res);
@@ -185,7 +185,7 @@ export default {
 			this.showTemp = false;
 			let that = this;
 			uni.request({
-				url: 'http://localhost:9090/friend/searchFriendByPhone/'+ this.keyword, //仅为示例，并非真实接口地址。
+				url: this.serviceUrl + '/friend/searchFriendByPhone/'+ this.keyword, //仅为示例，并非真实接口地址。
 			    method:'GET',//请求方式  或GET，必须为大写
 				success: res => {
 					console.log('res', res);

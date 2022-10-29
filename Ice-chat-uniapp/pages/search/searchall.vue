@@ -105,7 +105,7 @@ export default {
 		addqunliao(id){
 			let that = this;
 			uni.request({
-				url: 'http://localhost:9090/group/addGroupMemberByUserId/'+ this.myUserInfo.id + '/' + id, //仅为示例，并非真实接口地址。
+				url: this.serviceUrl + '/group/addGroupMemberByUserId/'+ this.myUserInfo.id + '/' + id, //仅为示例，并非真实接口地址。
 			    method:'GET',//请求方式  或GET，必须为大写
 				success: res => {
 					console.log('res', res);
@@ -181,7 +181,7 @@ export default {
 			this.showTemp = false;
 			let that = this;
 			uni.request({
-				url: 'http://localhost:9090/group/searchGroupByName/'+ this.keyword, //仅为示例，并非真实接口地址。
+				url: this.serviceUrl + '/group/searchGroupByName/'+ this.keyword, //仅为示例，并非真实接口地址。
 			    method:'GET',//请求方式  或GET，必须为大写
 				success: res => {
 					console.log('res', res);

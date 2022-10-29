@@ -127,4 +127,45 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend> impleme
 
         return jsonObject;
     }
+
+    @Override
+    public JSONObject getOnlyFriendList(Integer userid) {
+
+        QueryWrapper<Friend> queryWrapper = new QueryWrapper<Friend>();
+        queryWrapper.eq("userId",userid);
+        List<Friend> friends = friendMapper.selectList(queryWrapper);
+
+        List<UserGroup> result = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+
+        for (Friend friend : friends) {
+            //根据id查询用户信息
+            User user = userMapper.selectById(friend.getFriendId());
+            UserGroup userGroup = new UserGroup();
+            userGroup.setType("1");
+            BeanUtils.copyProperties(user,userGroup);
+
+            //根据房间号查询redis用户有多少未读消息
+            QueryWrapper<OfflineMsg> offlineMsgWrapper = new QueryWrapper<OfflineMsg>().orderByDesc("id").eq("type",1).eq("toId", userid);
+            Integer count = offlineMsgMapper.selectCount(offlineMsgWrapper);
+            userGroup.setUnMessages(count);
+            //添加最新消息的内容和时间
+            List<OfflineMsg> offlineMsg = offlineMsgMapper.selectList(offlineMsgWrapper);
+            if(count !=0 ) {
+                OfflineMsg msg = offlineMsg.get(0);
+                userGroup.setNewMessages(msg.getMsg());
+                userGroup.setNewTime(msg.getTime());
+            }
+
+            result.add(userGroup);
+        }
+        jsonObject.set("user",result);
+
+        //缓存
+        redisUtil.set("userOnlyList."+userid,jsonObject);
+        //指定缓存失效时间   2分钟
+        redisUtil.expire("userOnlyList."+userid,120);
+
+        return jsonObject;
+    }
 }

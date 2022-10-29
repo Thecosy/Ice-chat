@@ -140,6 +140,7 @@
 
 			},
 			toLogin(){
+				uni.clearStorage();
 				uni.setStorage({
 					key: "userLogin",
 					data: '',

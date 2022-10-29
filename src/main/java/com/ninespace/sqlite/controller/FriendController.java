@@ -76,6 +76,10 @@ public class FriendController {
         try {
             friendMapper.insert(OnFriend);
             friendMapper.insert(friend);
+
+            //查询一下数据更新最新缓存
+            friendService.getFriendList(friendId);
+            friendService.getFriendList(userId);
             return Result.ok();
         } catch (Exception e) {
 
@@ -146,7 +150,7 @@ public class FriendController {
         }
     }
 
-    @ApiOperation(value = "根据id查询朋友目录")
+    @ApiOperation(value = "根据id查询朋友和群组目录")
     @GetMapping("/getFriendByUserId/{userid}")
     public Result getFriendByUserId(
             @PathVariable Integer userid
@@ -159,5 +163,46 @@ public class FriendController {
         JSONObject friendList = friendService.getFriendList(userid);
         return Result.ok().data("result",friendList);
     }
+
+    @ApiOperation(value = "根据id查询朋友目录")
+    @GetMapping("/getOnlyFriendByUserId/{userid}")
+    public Result getOnlyFriendByUserId(
+            @PathVariable Integer userid
+    ) throws ParseException {
+        //先看看有没有缓存，有则返回缓存数据
+        Object userListCache = redisUtil.get("userOnlyList." + userid);
+        if(userListCache != null){
+            return Result.ok().data("result",userListCache);
+        }
+        JSONObject friendList = friendService.getOnlyFriendList(userid);
+        return Result.ok().data("result",friendList);
+    }
+
+    @ApiOperation(value = "暗号查找朋友")
+    @GetMapping("/setSignal/{userid}/{signal}")
+    public Result setSignal(
+            @PathVariable Integer userid,
+            @PathVariable Integer signal
+
+    ) throws ParseException {
+        //查询是否重复
+        //存入redis
+        List<User> result = new ArrayList<>();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.eq("id",userid);
+        User user = userMapper.selectOne(queryWrapper);
+
+        result.add(user);
+        redisUtil.sSet("signal." + signal,user);
+        redisUtil.expire("signal." + signal,120);
+
+        //先看看有没有缓存，有则返回缓存数据
+        Set<Object> signalRedis = redisUtil.sGet("signal." + signal);
+        if(signalRedis != null){
+            return Result.ok().data("result",signalRedis);
+        }
+        return Result.error();
+    }
+
 
 }

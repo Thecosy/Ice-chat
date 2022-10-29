@@ -7,10 +7,15 @@ import $db from './common/db.js'
 import $func from './common/func.js'
 import $request from './common/request.js'
 import $store from './common/store.js'
+// main.js
+import aLoading from "@/components/a-loading.vue";
+Vue.component('a-loading',aLoading)
 
 // #ifdef H5 || MP-360
 import $iscroll from './common/iscroll.js'
 Vue.prototype.$iscroll = $iscroll
+
+Vue.prototype.serviceUrl = "http://157.245.86.35:9090"
 
 uni.canIUse = function(name) {
 	return name in uni;

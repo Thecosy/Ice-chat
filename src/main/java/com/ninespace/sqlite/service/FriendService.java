@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FriendService extends IService<Friend> {
     JSONObject getFriendList(Integer userid);
+    JSONObject getOnlyFriendList(Integer userid);
 }

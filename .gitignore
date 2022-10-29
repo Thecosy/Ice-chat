@@ -14,7 +14,7 @@
 hs_err_pid*
 
 /target/
-target/
+./target/
 .idea
 *.iml
 *.iws
@@ -25,6 +25,5 @@ pom.xml
 .classpath
 .project
 .settings
-/IcePay-ment/target/
-/IceCMS-main/target/
-/IceWk-ment/target/
+/Ice-chat/target/
+

@@ -90,7 +90,7 @@
 				}
 				let that = this;
 				uni.request({
-					url: 'http://localhost:9090/user/phoneLogin/' + this.account +'/0000', //仅为示例，并非真实接口地址。
+					url: this.serviceUrl + '/user/phoneLogin/' + this.account +'/0000', //仅为示例，并非真实接口地址。
 					method: 'GET', //请求方式  或GET，必须为大写
 					success: res => {
 						

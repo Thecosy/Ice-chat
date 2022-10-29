@@ -14,190 +14,28 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-						style="width: 80rpx;height: 80rpx;"></image>
-					<view class="margin-left-sm">
-						新的朋友
-					</view>
-				</view>
-			</view>
+			
 		</view>
-		<view class="">
-			<view class="padding-lr bg-drak">
-				<view class="padding-tb-xs" style="width: 100%;">
-					A
-				</view>
+		
+			<view v-if="this.tabCurrentIndex == 0" >
+				<txl @ev="evFunc" :datas="datas" :index="true" name="name"></txl>
 			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm" @click="linkman">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
+		
+		
+			<view v-else >
+				<txl @ev="evFunc" :datas="Gdatas" :index="true" name="name"></txl>
 			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="">
-			<view class="padding-lr bg-drak">
-				<view class="padding-tb-xs" style="width: 100%;">
-					B
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="">
-			<view class="padding-lr bg-drak">
-				<view class="padding-tb-xs" style="width: 100%;">
-					C
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="">
-			<view class="padding-lr bg-drak">
-				<view class="padding-tb-xs" style="width: 100%;">
-					D
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="">
-			<view class="padding-lr bg-drak">
-				<view class="padding-tb-xs" style="width: 100%;">
-					E
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="padding-lr margin-top-sm margin-bottom-sm">
-				<view class="dflex">
-					<view class="">
-						<image src="/static/images/headimg/face_12.jpg" mode="" class="border-radius-lg"
-							style="width: 80rpx;height: 80rpx;"></image>
-					</view>
-					<view class="margin-left-sm w-full">
-						<view class="">
-							新的朋友
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
+		
 		<!-- 侧边abc -->
-		<view class="fixed dflex-c padding-lr-sm fs-xs ft-dark" style="right: 0rpx; flex-direction: column; top: 0;bottom: 0;">
+	<!-- 	<view class="fixed dflex-c padding-lr-sm fs-xs ft-dark" style="right: 0rpx; flex-direction: column; top: 0;bottom: 0;">
 			<view class="" v-for="(item, idx) in capitals" :key="idx">
 				{{item}}
 			</view>
 			<view class="">
 				#
 			</view>
-		</view>
+		</view> -->
+		
 		<view class="use-hover use-user fixed-top distance" :style="{ marginBottom: 10 + 'px' }"
 			@click="friend">
 			<view class="message dflex-c pos-a fs-xs">
@@ -212,9 +50,27 @@
 </template>
 
 <script>
+	import txl from '@/components/yt-txl/index.vue';
 	export default {
+		components:{
+			txl
+		},
 		data() {
+			let datas = [{
+			 //    "employeeId": "test1",
+				// "name": "范冰冰",
+				// "companyId": "1",
+				// "companyName": "test company",
+				// "departmentId": "testdeptid",
+				// "intro": "test dept",
+				// "postId": "testpostid",
+				// "postName": "testpost",
+			}]
+
 			return {
+				myUserInfo:[],
+				Gdatas: [],
+				datas: datas,
 				tabCurrentIndex:0,
 				scrollTop: 0,
 				navHeight: 230,
@@ -232,18 +88,22 @@
 						cnt: 0,
 						loadingType: 'more',
 						datas: []
-					},
-					{
-						id: 2,
-						state: '工程师',
-						cnt: 0,
-						loadingType: 'more',
-						datas: []
 					}
+					
 				],
+				
 			};
 		},
 		onLoad(res) {
+			let _this = this;
+			uni.getStorage({
+				key: 'userLogin',
+				success: function(res) {
+					console.log("获取成功",res);
+					_this.myUserInfo = res.data
+				}
+			});
+			this.getData();
 			this.capitals = [];
 
 			for (let i = 0; i < 26; i++) {
@@ -254,6 +114,41 @@
 			this.scrollTop = e.scrollTop
 		},
 		methods: {
+			 evFunc(data){
+				 if(data.type == 1){
+				 	uni.navigateTo({
+				 		url: `/pages/chat/chat?data=` +data.id
+				 	});
+				 }else if(data.type == 2){
+				 	uni.navigateTo({
+				 		url: `/pages/chat/groupchat?data=` + data.id,
+				 	});
+				 }
+			            console.log()
+			        },
+			getData(){
+				console.log("cahxubn")
+				let that = this;
+				//查询UserList
+				uni.request({
+					url: this.serviceUrl + '/friend/getOnlyFriendByUserId/' + that.myUserInfo.id, //仅为示例，并非真实接口地址。
+				    method:'GET',//请求方式  或GET，必须为大写
+					success: res => {
+						console.log(res)
+						that.datas = res.data.data.result.user;
+						this.UserListShow = true;
+						}
+					})
+					uni.request({
+						url: this.serviceUrl + '/group/getOnlyGroupListByUserId/' + that.myUserInfo.id, //仅为示例，并非真实接口地址。
+					    method:'GET',//请求方式  或GET，必须为大写
+						success: res => {
+							console.log(res)
+							that.Gdatas = res.data.data.result.user;
+							this.UserListShow = true;
+							}
+						})
+			},
 			// 搜索
 			search() {
 				uni.navigateTo({
@@ -286,11 +181,12 @@
 
 <style lang="scss">
 	.distance {
+		z-index: 999999;
 		background: #4d9ff3;
 		color: #fff;
 		box-shadow: 0px 0px 10px 1px #4d9ff3;
-		right: 60rpx;
-		bottom: 155rpx;
+		right: 35rpx;
+		bottom: 119rpx;
 	}
 
 	.message {

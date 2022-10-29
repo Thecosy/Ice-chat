@@ -165,7 +165,8 @@
             "path" : "pages/user/friend/list",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "通讯录",
+                "navigationBarTitleText": "",
+                "navigationStyle": "custom",
                 "enablePullDownRefresh": false
             }
         }
@@ -215,6 +216,16 @@
 				"navigationStyle": "custom",
                 "enablePullDownRefresh": false
 				
+            }
+            
+        }
+        ,{
+            "path" : "pages/chat/signal",
+            "style" :                                                                                    
+            {
+               "navigationBarTitleText": "",
+               "navigationStyle": "custom",
+                "enablePullDownRefresh": false
             }
             
         }

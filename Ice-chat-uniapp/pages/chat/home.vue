@@ -2,7 +2,6 @@
 	<view class="page-container box-sizing-b w-full">
 		<!-- 头部组件 -->
 		<use-header icon=""></use-header>
-
 		<view class="dflex padding-left padding-right-xs w-full bg-drak padding-tb-sm">
 			<!-- 搜索 -->
 			<view class="use-hover use-search dflex-c border-radius-lg padding-lr w-full" @click="toSearchall">
@@ -27,12 +26,12 @@
 					</view>
 					<text>扫一扫</text>
 				</view>
-				<button class="no-border btn" open-type="share">
+				<button  @click="toSignal" class="no-border btn" open-type="share">
 					<view class="use-hover more-item dflex-c dflex-flow-c bg-main border-radius-sm margin-left-sm">
 						<view class="dflex-c bg-main">
 							<view class="iconfont iconweixin ft-base"></view>
 						</view>
-						<text>分享创建</text>
+						<text>暗号</text>
 					</view>
 				</button>
 				<view class="use-hover more-item dflex-c dflex-flow-c bg-main border-radius-sm margin-left-sm"
@@ -52,10 +51,17 @@
 				</view>
 			</view>
 		</use-popup>
+	
 		<view v-if="!UserListShow"  class="margin-home" >
 			<image class="image-size" src="../../static/images/empty/message.03a0abb5.png"></image>
 		</view>
-
+		<mescroll-body-diy ref="mescrollRef" @init="mescrollInit" top="0" bottom="0" @down="downCallback" @up="upCallback">
+				<!-- 模拟的内容 -->
+			<!-- 	<image src="https://www.mescroll.com/img/beibei/beibei1.jpg" mode="widthFix"/>
+				<image src="https://www.mescroll.com/img/beibei/beibei2.jpg" mode="widthFix"/>
+			 -->	<!-- 分页的数据列表 -->
+			<!-- 	<good-list :list="goods"></good-list> -->
+			
 		<view class="padding-top-sm padding-lr margin-bottom">
 		<!-- 	<view class="use-hover dflex-b im-chat-item" @click="toChat">
 				<view class="istop">
@@ -109,7 +115,7 @@
 				</view>
 			</view> -->
 		</view>
-
+		</mescroll-body-diy>
 		<view class="use-placeholder"></view>
 
 		<view class="use-hover use-user fixed-top" :style="{ marginBottom: navUserHeight + 'px' }" @click="toUser">
@@ -122,6 +128,8 @@
 </template>
 
 <script>
+	import MescrollBodyDiy from "@/uni_modules/mescroll-uni/components/mescroll-diy/beibei/mescroll-body.vue";
+	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js";
 	import { formatDate } from "@/utils/date.js";
 
 	import {
@@ -129,6 +137,10 @@
 	} from 'vuex';
 
 	export default {
+		mixins: [MescrollMixin], // 使用mixin
+		components: {
+			MescrollBodyDiy // 避免与main.js注册的全局组件名称相同,否则注册组件失效(iOS真机 APP HBuilderX2.7.9)
+		},
 		computed: {
 			...mapState(['member'])
 		},
@@ -231,6 +243,18 @@
 		},
 
 		methods: {
+			toSignal() {
+				uni.navigateTo({
+					url: `/pages/chat/signal` 
+				});
+			},
+			/*下拉刷新的回调 */
+			downCallback() {
+				// 这里加载你想下拉刷新的数据, 比如刷新轮播数据
+				this.getData();
+				// 下拉刷新的回调,默认重置上拉加载列表为第一页 (自动执行 page.num=1, 再触发upCallback方法 )
+				this.mescroll.resetUpScroll()
+			},
 			  //时间如果是最近一天，则显示时间，如果是最近一周，则显示周几
 			    getTime(time) {
 			      let now = new Date();
@@ -302,7 +326,7 @@
 				let that = this;
 				//查询UserList
 				uni.request({
-					url: 'http://localhost:9090/friend/getFriendByUserId/' + that.myUserInfo.id, //仅为示例，并非真实接口地址。
+					url: this.serviceUrl + '/friend/getFriendByUserId/' + that.myUserInfo.id, //仅为示例，并非真实接口地址。
 				    method:'GET',//请求方式  或GET，必须为大写
 					success: res => {
 						
@@ -311,17 +335,17 @@
 						}
 					})
 				  //启动定时器
-				// this.timer = setInterval(() => {
-				// console.log("查询UserList")
-				// //查询UserList
-				// uni.request({
-				//         url: 'http://localhost:9090/friend/getFriendByUserId/' + that.myUserInfo.id, //仅为示例，并非真实接口地址。
-				//         method:'GET',//请求方式  或GET，必须为大写
-				//         success: res => {
-				// 			that.UserList = res.data.data.result.user;
-				//         }
-				//     })
-				// }, 1000)
+				this.timer = setInterval(() => {
+				console.log("查询UserList")
+				//查询UserList
+				uni.request({
+				        url: 'http://localhost:9090/friend/getFriendByUserId/' + that.myUserInfo.id, //仅为示例，并非真实接口地址。
+				        method:'GET',//请求方式  或GET，必须为大写
+				        success: res => {
+							that.UserList = res.data.data.result.user;
+				        }
+				    })
+				}, 1000)
 				
 			},
 			// 加载数据
@@ -418,7 +442,8 @@
 				console.log('home engineer');
 
 				uni.navigateTo({
-					url: `/pages/engineer/list`
+					// url: `/pages/engineer/list`,
+					url: `/pages/user/personal`,
 				})
 			},
 			// 个人中心
@@ -558,4 +583,7 @@
 .image-size{
 	width: 500rpx;
 }
+	image{width: 100%;vertical-align: bottom;height:auto}
+	.header{z-index: 9900;position: fixed;top: --window-top;left: 0;height: 180upx;background: white;}
+	.footer{z-index: 9900;position: fixed;bottom: 0;left: 0;height: 100upx;background: white;}
 </style>

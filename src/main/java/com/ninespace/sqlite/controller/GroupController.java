@@ -13,6 +13,7 @@ import com.ninespace.sqlite.mapper.OfflineMsgMapper;
 import com.ninespace.sqlite.mapper.UserMapper;
 import com.ninespace.sqlite.service.FriendService;
 import com.ninespace.sqlite.service.GroupService;
+import com.ninespace.sqlite.util.RedisUtil;
 import com.ninespace.sqlite.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
+import java.text.ParseException;
 import java.util.*;
 
 @RestController
@@ -41,6 +43,9 @@ public class GroupController {
 
     @Autowired
     private FriendService friendService;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @ApiOperation(value = "搜索群聊")
     @GetMapping("/searchGroupByName/{name}")
@@ -150,10 +155,22 @@ public class GroupController {
 
     @ApiOperation(value = "获得全部群聊表")
     @GetMapping("/getGroup")
-    public List<OfflineMsg> getGroup(
-
-    ){
+    public List<OfflineMsg> getGroup(){
         return offlineMsgMapper.selectList(null);
+    }
+
+    @ApiOperation(value = "根据id查询群聊目录")
+    @GetMapping("/getOnlyGroupListByUserId/{userid}")
+    public Result getOnlyGroupListByUserId(
+            @PathVariable Integer userid
+    ) throws ParseException {
+        //先看看有没有缓存，有则返回缓存数据
+        Object groupListCache = redisUtil.get("groupOnlyList." + userid);
+        if(groupListCache != null){
+            return Result.ok().data("result",groupListCache);
+        }
+        cn.hutool.json.JSONObject friendList = groupService.getOnlyGroupList(userid);
+        return Result.ok().data("result",friendList);
     }
 
 }
